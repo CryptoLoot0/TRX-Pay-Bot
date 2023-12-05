@@ -1,0 +1,19 @@
+let stat = Bot.getProperty(""+user.telegramid+"")
+let wdinfo = Bot.getProperty("wdInfo")
+if (stat=="ban"){
+    Bot.sendMessage("*You're Ban*")
+} else {
+    let balance = Libs.ResourcesLib.userRes("balance")
+    let withdrawn = Libs.ResourcesLib.userRes("withdrawn")
+    let wallet = User.getProperty("PaytmWallet") // Changed var to let for consistency
+    if (wallet === undefined) {
+        Bot.sendMessage("_❌ Wallet Not set_")
+    } else {
+        if (balance.value() < 0.1) {
+            Bot.sendMessage("_❌ You have to earn at least 0.5 TRX !_")
+        } else {
+            Bot.sendMessage("*📤 Please Enter the Amount *") // Added space after emoji
+            Bot.runCommand("auto")
+        }
+    }
+}
