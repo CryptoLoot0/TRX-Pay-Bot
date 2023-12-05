@@ -1,0 +1,20 @@
+var withdrawn = Bot.getProperty("totalWithdrawn");
+withdrawn = parseFloat(withdrawn);
+var wallet = User.getProperty("PaytmWallet");
+var balance = Libs.ResourcesLib.userRes("balance");
+
+if (data.message < 0.1) {
+    Bot.sendMessage("_❌ Minimum withdraw 1.0 TRX_");
+} else {
+    if (data.message > balance.value()) {
+        Bot.sendMessage("_❌ Maximum withdraw " + balance.value().toFixed(6) + " TRX_");
+    } else {
+        Bot.sendMessage("*✅ Withdrawal sent Successfully 🎉\n\n💰Amount : " + data.message + " TRX\n💼 Wallet : " + wallet + "\n\n⛔️ May take up to 24 hours*" + "*\n\n➡️ Message Admin @cryptoloot007 for instant withdrawal 🎉🎉*");
+        balance.add(-data.message);
+        Api.sendMessage({
+            chat_id: "@cryptoloot007",
+            text: "*🔋 New Approved Payout\n\n▪️ Status : Confirmed\n▪️ User Id :* " + user.telegramid + "\n*▪️ Amount :* " + data.message + " TRX\n\n*♦️ Paid Address ♦️\n " + wallet + "\n\n✅ Bot @free_tron_gift_bot*",
+            parse_mode: "Markdown"
+        });
+    }
+}
