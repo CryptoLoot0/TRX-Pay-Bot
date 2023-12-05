@@ -1,0 +1,51 @@
+if (request.data) {
+  var chatID = request.message.chat_id;
+  var messageID = request.message.message_id;
+
+  Api.deleteMessage({
+    chat_id: chatID,
+    message_id: messageID
+  });
+}
+
+var ban = Bot.getProperty(user.telegramid);
+
+if (ban === "Ban") {
+  var banText = "<i>🚫 You're banned.</i>";
+
+  Api.sendMessage({
+    text: banText,
+    parse_mode: "html"
+  });
+  return;
+}
+
+var maintenanceStatus = Bot.getProperty("maintenanceStatus");
+
+if (maintenanceStatus === "On") {
+  var onText =
+    "<i>🛠️ Bot is under maintenance, please come back after some time.</i>";
+
+  Api.sendMessage({
+    text: onText,
+    parse_mode: "html"
+  });
+  return;
+}
+
+var inviteLink = Libs.ReferralLib.getLink();
+var referCount = Libs.ReferralLib.getRefCount();
+var perRefer = Bot.getProperty("perRefer");
+var text =
+  "<b>⏯️ Total Invites: " +
+  referCount +
+  " Users" +
+  "\n\n⛔️ Per Referral 0.05 TRX" +
+  "\n\n🔗 Referral Link ⬇️\n" +
+  inviteLink +
+  "</b>";
+
+Api.sendMessage({
+  text: text,
+  parse_mode: "html"
+});
