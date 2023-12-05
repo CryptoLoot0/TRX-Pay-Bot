@@ -1,0 +1,64 @@
+Commamnd :  /start
+BJS : 
+
+var button = [{ title : "✅CHECK" , command : "✅CHECK" }]
+Bot.sendInlineKeyboard(button , "*👋 Welcome to Free TRX Pay bot ‼️ \n\n🔴 Please Join Announcement channel and Discussion Before Continue !!\n @Crypto_Loot 💥 \n @Crypto_Loot_Talks\n\n 🔎 Click on Subscribe Button and Subscribe our YouTube 🔗🔗\nhttps://www.youtube.com/@CryptoLoot0 \n\n🔷 Follow our Official Twitter Page 🔗🔗\n https://x.com/CryptoLootO\n\n✅ Once Joined All Channel click on Check Button ➡️*"
+)
+function hello(message) {
+var greetings = ""
+
+Bot.sendMessage(greetings + message)
+}
+
+function doTouchOwnLink() {
+  var ownText = "<i>⚠️ You can't invite yourself.</i>"
+
+  Api.sendMessage({
+    text: ownText,
+    parse_mode: "html"
+  })
+}
+
+function doAttracted(refUser) {
+  var userText =
+    "<b>👬 You are invited by <a href='tg://user?id=" +
+    refUser.telegramid +
+    "'>" +
+    refUser.first_name +
+    "</a></b>"
+
+  Api.sendMessage({
+    text: userText,
+    parse_mode: "html"
+  })
+
+  var refUserText =
+    "<b>👬 New user on your invite link : <a href='tg://user?id=" +
+    user.telegramid +
+    "'>" +
+    user.first_name +
+    "</a></b>"
+
+  Api.sendMessage({
+    chat_id: refUser.telegramid,
+    text: refUserText,
+    parse_mode: "html"
+  })
+}
+
+function doAlreadyAttracted() {
+  var alreadyText = "<i>⚠️ You have already started @" + bot.name + "</i>"
+
+  Api.sendMessage({
+    text: alreadyText,
+    parse_mode: "html"
+  })
+}
+
+var trackOptions = {
+  onTouchOwnLink: doTouchOwnLink,
+  onAttracted: doAttracted,
+  onAlreadyAttracted: doAlreadyAttracted
+}
+
+Libs.ReferralLib.track(trackOptions)
