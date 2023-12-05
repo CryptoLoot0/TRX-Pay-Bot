@@ -1,0 +1,7 @@
+var balance = Libs.ResourcesLib.userRes("balance")
+var text = "<b>🤴 User : " + user.first_name + "\n\n💰 Balance : " + balance.value().toFixed(2) + " TRX\n\n⚜️ Refer & earn more</b>"
+
+Api.sendMessage({
+  text: text,
+  parse_mode: "html"
+})
