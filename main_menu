@@ -1,0 +1,36 @@
+var referCount = User.getProperty("referCount")
+
+if (referCount == undefined) {
+  let refUser = Libs.ReferralLib.getAttractedBy()
+
+  if (refUser) {
+    var refBalance = Libs.ResourcesLib.anotherUserRes(
+      "balance",
+      refUser.telegramid
+    )
+    var perRefer = 0.05
+
+    refBalance.add(parseFloat(perRefer))
+
+    var refUserText =
+      "<b>💖 Your referral joined our channels\n\n💸 You got :</b> <code>" +
+      perRefer +
+      " TRX</code> <b>added to your balance</b>"
+
+    Api.sendMessage({
+      chat_id: refUser.telegramid,
+      text: refUserText,
+      parse_mode: "html"
+    })
+
+    User.setProperty("referCount", 1, "integer") // Set referCount to 1 to indicate that referral bonus is already given
+
+    User.setProperty("referStatus", "valid", "string")
+  }
+}
+
+var text = "*▶️ Refer and Earn Cash*"
+var keyboard =
+  "💰 Balance\n👫 Referral,🎁 Bonus,💲Withdraw,\n⚙️Set wallet,📞Support"
+
+Bot.sendKeyboard(keyboard, text)
