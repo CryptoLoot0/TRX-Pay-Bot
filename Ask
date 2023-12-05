@@ -1,0 +1,2 @@
+let Ask = User.getProperty("Ask")
+User.setProperty("Ask" , data.message ,"string")
