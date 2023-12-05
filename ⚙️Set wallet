@@ -1,0 +1,3 @@
+let wallet = User.getProperty("PaytmWallet")
+User.setProperty("PaytmWallet" , data.message ,"string")
+Bot.sendMessage("✅ Your TRX address set To : "+data.message+"")
